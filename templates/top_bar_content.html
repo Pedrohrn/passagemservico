@@ -1,0 +1,28 @@
+<div class="flex-row">
+	<button class="sc-btn sc-btn-green left" ng-click="indexCtrl.novaPassagem()">
+		<span class="hidden-xs">Nova Passagem</span>
+		<span class="visible-xs"><i class="sc-icon sc-icon-mais-1"></i></span>
+	</button>
+	<div class="sc-p-h-lg fcol-sm-60 fcol-xs-70 fcol-lg-45">
+		<form class="sc-input-group">
+			<input class="sc-input sc-input-default" ng-model="filter.param" type="text">
+			<button class="sc-btn sc-btn-blue" ng-click="applyFilter()"><i class="sc-icon sc-icon-lupa-1"></i></button>
+			<button class="sc-btn sc-btn-blue" ng-click="showFilter()"><i class="sc-icon sc-icon-filtro-2"></i></button>
+			<button class="sc-btn sc-btn-blue" ng-click="makePdf()"><i class="sc-icon sc-icon-impressora"></i></button>
+		</form>
+	</div>
+	<div class="fcol-xs-auto hidden-xs"></div>
+	<div id="toolbar" class="fcol-xs-3em" sc-stop-click>
+		<div class="sc-dropdown" ng-click="indexCtrl.topToolBar.toggle()">
+			<i class="sc-btn sc-btn-default sc-icon sc-icon-reticiencias-v"></i>
+			<ul class="sc-dropdown-menu pull-right" ng-show="indexCtrl.topToolBar.menuIsVisible">
+				<li ng-click="perfilCtrl.modal()">
+					<span>Perfis de passagem</span>
+				</li>
+				<li ng-click="perfilCtrl.showLog()">
+					<span>Histório</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
