@@ -27,7 +27,7 @@ angular.module('passagem-servico').lazy
 					}
 				],
 				disabled: false,
-				detalhes: 'blabdsakdsabdsa',
+				observacoes: 'blabdsakdsabdsa',
 			}
 		]
 	};
@@ -39,7 +39,14 @@ angular.module('passagem-servico').lazy
 			passagem.acc = new scToggle()
 			passagem.notificacoes = new scToggle()
 			passagem.modal = new scModal()
+		},
 
+		editar: function(passagem) {
+			if (passagem.edit.opened == false) {
+				passagem.edit.opened = true
+			} else {
+				passagem.edit.opened = false
+			}
 		}
 	};
 
