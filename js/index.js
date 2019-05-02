@@ -66,4 +66,38 @@ angular.module('passagem-servico').lazy
 		},
 	};
 
+	vm.perfilCtrl = {
+		modal: new scModal(),
+		viewPerfis: false,
+		viewCategorias: true,
+
+		modalToggle: function() {
+			this.modal.open()
+		},
+
+		close: function() {
+			this.modal.close()
+		},
+
+		showCategorias: function() {
+			if (this.viewCategorias == false && this.viewPerfis == true) {
+				this.viewCategorias = true
+				this.viewPerfis = false
+			} else {
+				this.viewCategorias = true
+				this.viewPerfis = false
+			}
+		},
+
+		showPerfis: function() {
+			if (this.viewCategorias == true && this.viewPerfis == false) {
+				this.viewPerfis = true
+				this.viewCategorias = false
+			} else {
+				this.viewCategorias = false
+				this.viewPerfis = true
+			}
+		},
+	};
+
 }])

@@ -1,0 +1,60 @@
+<div class="" sc-modal="indexCtrl.perfilCtrl.modal">
+
+	<div class="sc-modal-header flex-row">
+		<div ng-if="indexCtrl.perfilCtrl.viewPerfis && !indexCtrl.perfilCtrl.viewCategorias" class="sc-text-lg align-self-center">Perfis de passagem</div>
+		<div ng-if="indexCtrl.perfilCtrl.viewCategorias && !indexCtrl.perfilCtrl.viewPerfis" class="sc-text-lg align-self-center">Categorias</div>
+		<button ng-if="indexCtrl.perfilCtrl.viewPerfis && !indexCtrl.perfilCtrl.viewCategorias" class="sc-btn sc-btn-green sc-btn-sm sc-btn-thin sc-m-l-lg" ng-click="indexCtrl.perfilCtrl.newPerfil()">Novo Perfil</button>
+		<button ng-if="indexCtrl.perfilCtrl.viewCategorias && !indexCtrl.perfilCtrl.viewPerfis" class="sc-btn sc-btn-green sc-btn-sm sc-btn-thin sc-m-l-lg" ng-click="indexCtrl.perfilCtrl.newCategoria()">Nova Categoria
+	</div>
+
+	<div class="sc-modal-body">
+		<div class="sc-btn-group sc-m-l-md">
+			<button class="sc-btn sc-btn-default" ng-click="indexCtrl.perfilCtrl.showPerfis()" ng-class="{'sc-btn-blue': indexCtrl.perfilCtrl.viewPerfis && !indexCtrl.perfilCtrl.viewCategorias}">Perfis</button>
+			<button class="sc-btn sc-btn-default" ng-click="indexCtrl.perfilCtrl.showCategorias()" ng-class="{'sc-btn-blue': !indexCtrl.perfilCtrl.viewPerfis && indexCtrl.perfilCtrl.viewCategorias}">Categorias</button>
+		</div>
+		<div class="sc-fieldset">
+			<ul ng-if="indexCtrl.perfilCtrl.viewPerfis && !indexCtrl.perfilCtrl.viewCategorias">
+				<li ng-repeat="perfil in indexCtrl.perfilCtrl.list track by $index">
+					<div class="flex-row">
+						<div class="fcol-xs-auto">
+							<div class="sc-text-bold sc-text-black">{{perfil.nome}}</div>
+						</div>
+						<div class="fcol-xs-7em" ng-if="perfil.disabled">
+							<span class="sc-border-radius sc-text-sm sc-p-v-xs sc-text-white sc-p-h-lg sc-bg-yellow">Desativado!</span>
+						</div>
+						<div class="fcol-xs-20 align-right">
+							<i class="sc-icon sc-icon-lapis sc-badge-hover-blue" ng-click="editar()"></i>
+							<i class="sc-icon sc-icon-lixeira-1 sc-badge-hover-red" ng-click="excluir()"></i>
+							<i ng-if="!perfil.disabled" class="sc-icon sc-icon-banir sc-badge-hover-yellow" ng-click="disable()"></i>
+							<i ng-if="perfil.disabled" class="sc-icon sc-icon-seta-9-esquerda sc-badge-hover-blue" ng-click="disable()"></i>
+						</div>
+					</div>
+					<div ng-include="'templates/perfil_form.html'" ng-if="perfil.edit.opened"></div>
+				</li>
+			</ul>
+			<ul ng-if="!indexCtrl.perfilCtrl.viewPerfis && indexCtrl.perfilCtrl.viewCategorias">
+				<li ng-repeat="categoria in indexCtrl.categoriasCtrl.list track by $index">
+					<div class="flex-row">
+						<div class="fcol-xs-auto">
+							<div class="sc-text-bold sc-text-black">{{categoria.label}}</div>
+						</div>
+						<div class="fcol-xs-7em" ng-if="categoria.disabled">
+							<span class="sc-border-radius sc-text-sm sc-p-v-xs sc-text-whute sc-p-h-lg sc-bg-yellow">Desativada!</span>
+						</div>
+						<div class="fcol-xs-20 align-right">
+							<i class="sc-icon sc-icon-lapis sc-badge-hover-blue" ng-click="editar()"></i>
+							<i class="sc-icon sc-icon-lixeira-2 sc-badge-hover-blue" ng-click="excluir()"></i>
+							<i ng-if="!categoria.disabled" class="sc-icon sc-icon-banir sc-badge-hover-yellow" ng-click="disable()"></i>
+							<i ng-if="categoria.disabled" class="sc-icon sc-icon-seta-9-esquerda sc-badge-hover-blue" ng-click="disable"></i>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="sc-modal-footer">
+		<button class="align-right sc-btn sc-btn-default" ng-click="indexCtrl.perfilCtrl.close()">Fechar</button>
+	</div>
+
+</div>
