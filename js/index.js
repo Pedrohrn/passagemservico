@@ -56,6 +56,14 @@ angular.module('passagem-servico').lazy
 		toggle: function() {
 			this.menuIsVisible = !this.menuIsVisible
 		},
-	}
+	};
+
+	vm.filtroCtrl = {
+		fitroAvancado: false,
+
+		showFilter: function(){
+			this.filtroAvancado = !this.filtroAvancado
+		},
+	};
 
 }])
