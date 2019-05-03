@@ -55,9 +55,14 @@
 			<div ng-repeat="objeto in passagem.objetos track by $index" class="sc-fieldset sc-m-h-md flex-row" ng-class="{'sc-text-sm': screen.isXs}">
 				<div class="sc-fieldset-head flex-row col-xs-12">
 					<div class="sc-input-group fcol-xs-50 fcol-sm-30 fcol-md-30 fcol-lg-40 sc-text-sm">
-						<select class="sc-input sc-input-default sc-input-thin" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
+						<select ng-if="!categoria.edit && !categoria.new" class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
 							<option value="">Selecione ou cadastre</option>
 						</select>
+						<div ng-if="categoria.edit || categoria.new" class="sc-input-group">
+							<input class="sc-input-default" ng-model="categoria.label">
+							<button class="sc-btn sc-btn-green" ng-click="indexCtrl.categoriasCtrl.salvarCategoria()"><i class="sc-icon sc-icon-visto-1"></i></button>
+							<button class="sc-btn sc-btn-red" ng-click="indexCtrl.categoriasCtrl.cancelarCadastro()"><i class="sc-icon sc-icon-fechar-1"></i></button>
+						</div>
 						<button class="sc-btn sc-btn-default sc-dropdown">
 							<i class="sc-icon sc-icon-reticiencias-v" ng-click="categoria.toggleToolbar()"></i>
 						</button>
@@ -100,7 +105,7 @@
 									<input class="sc-input sc-input-default sc-input-thin col-xs-12" ng-model="item.qtd" type="number" max="999" min="0" step="1">
 								</div>
 								<div class="sc-m-h-lg sc-p-h-lg fcol-xs-60">
-									<input class="sc-input sc-input-default sc-input-thin col-xs-12" ng-model="item.nome" type="text">
+									<input class="sc-input sc-input-default sc-input-thin col-xs-12" ng-model="item.label" type="text">
 								</div>
 								<div class="fcol-xs-auto"></div>
 								<div class="fcol-xs-3em align-right">

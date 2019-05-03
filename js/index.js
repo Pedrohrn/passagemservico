@@ -67,9 +67,67 @@ angular.module('passagem-servico').lazy
 	};
 
 	vm.perfilCtrl = {
+		list: [
+			{ id: 1,
+				nome: 'Perfil Teste',
+				objetos: [
+					{ categoria: { id: 1, label: 'Funcionamento'},
+						itens: [
+							{ qtd: 1, label: 'teste' },
+							{ qtd: 32, label: 'ui ui'}
+						]
+					},
+					{ categoria: { id: 2, label: 'Acontecimento'},
+						itens: [
+						  { qtd: 2, label: 'teste2' },
+						  { qtd: 3, label: 'teste 234'}
+						]
+					}
+				],
+				disabled: true,
+				permissoes: [
+					{ label: 'Adicionar/Excluir objetos e itens', checked: false },
+					{ label: 'Adicionar objetos e itens', checked: false },
+					{ label: 'Excluir objetos e itens', checked: true },
+					{ label: 'Excluir/Adicionar somente itens', checked: true },
+					{ label: 'Editar nomes dos itens', checked: false },
+					{ label: 'Editar quantidade dos itens', checked: false}
+				]
+			},
+			{ id: 2,
+				nome: 'Perfil Teste 2',
+				objetos: [
+					{ categoria: { id: 1, label: 'Funcionamento'},
+						itens: [
+							{ qtd: 1, label: 'testessss' },
+							{ qtd: 32, label: 'uissss ui'}
+						]
+					},
+					{ categoria: { id: 2, label: 'Acontecimento'},
+						itens: [
+						  { qtd: 2, label: 'teste2sss' },
+						  { qtd: 3, label: 'testadase 234'}
+						]
+					}
+				],
+				disabled: false,
+				permissoes: [
+					{ label: 'Adicionar/Excluir objetos e itens', checked: true },
+					{ label: 'Adicionar objetos e itens', checked: true },
+					{ label: 'Excluir objetos e itens', checked: true },
+					{ label: 'Excluir/Adicionar somente itens', checked: true },
+					{ label: 'Editar nomes dos itens', checked: false },
+					{ label: 'Editar quantidade dos itens', checked: false}
+				]
+			},
+		],
 		modal: new scModal(),
-		viewPerfis: false,
-		viewCategorias: true,
+		viewPerfis: true,
+		viewCategorias: false,
+
+		init: function(perfil) {
+			perfil.edit = new scToggle()
+		},
 
 		modalToggle: function() {
 			this.modal.open()
@@ -77,6 +135,14 @@ angular.module('passagem-servico').lazy
 
 		close: function() {
 			this.modal.close()
+		},
+
+		editar: function(perfil) {
+			if (perfil.edit.opened) {
+				return this.cancelar()
+			} else {
+				perfil.edit.opened = true
+			}
 		},
 
 		showCategorias: function() {
