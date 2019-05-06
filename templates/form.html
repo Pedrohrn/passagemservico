@@ -39,7 +39,7 @@
 			<div class="col-xs-12 sc-p-lg">
 				<div class="sc-label">Perfil:</div>
 				<div>
-					<select class="sc-input-default col-xs-6 col-md-4" ng-options="perfil as perfil.label disable when perfil.disabled for perfil in indexCtrl.perfilCtrl.list track by perfil.id" ng-change="formCtrl.formCtrl.setPerfil()" ng-model="passagem.perfil" style="max-width: 25em;"></select>
+					<select class="sc-input-default col-xs-6 col-md-4" ng-options="perfil as perfil.nome disable when perfil.disabled for perfil in indexCtrl.perfilCtrl.list track by perfil.id" ng-change="formCtrl.formCtrl.setPerfil()" ng-model="passagem.perfil" style="max-width: 25em;"></select>
 				</div>
 			</div>
 		</div>
@@ -54,15 +54,10 @@
 			</div>
 			<div ng-repeat="objeto in passagem.objetos track by $index" class="sc-fieldset sc-m-h-md flex-row" ng-class="{'sc-text-sm': screen.isXs}">
 				<div class="sc-fieldset-head flex-row col-xs-12">
-					<div class="sc-input-group fcol-xs-50 fcol-sm-30 fcol-md-30 fcol-lg-40 sc-text-sm">
-						<select ng-if="!categoria.edit && !categoria.new" class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
+					<div class="sc-input-group fcol-xs-50 fcol-sm-30 fcol-md-30 fcol-lg-40 sc-text-sm" ng-if="!categoria.edit && !categoria.new">
+						<select class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
 							<option value="">Selecione ou cadastre</option>
 						</select>
-						<div ng-if="categoria.edit || categoria.new" class="sc-input-group">
-							<input class="sc-input-default" ng-model="categoria.label">
-							<button class="sc-btn sc-btn-green" ng-click="indexCtrl.categoriasCtrl.salvarCategoria()"><i class="sc-icon sc-icon-visto-1"></i></button>
-							<button class="sc-btn sc-btn-red" ng-click="indexCtrl.categoriasCtrl.cancelarCadastro()"><i class="sc-icon sc-icon-fechar-1"></i></button>
-						</div>
 						<button class="sc-btn sc-btn-default sc-dropdown">
 							<i class="sc-icon sc-icon-reticiencias-v" ng-click="categoria.toggleToolbar()"></i>
 						</button>
@@ -81,6 +76,11 @@
 								<span>Excluir categoria</span>
 							</li>
 						</ul>
+					</div>
+					<div ng-if="categoria.edit || categoria.new" class="sc-input-group">
+						<input class="sc-input-default" ng-model="categoria.label">
+						<button class="sc-btn sc-btn-green" ng-click="indexCtrl.categoriasCtrl.salvarCategoria()"><i class="sc-icon sc-icon-visto-1"></i></button>
+						<button class="sc-btn sc-btn-red" ng-click="indexCtrl.categoriasCtrl.cancelarCadastro()"><i class="sc-icon sc-icon-fechar-1"></i></button>
 					</div>
 					<div class="fcol-xs-auto">
 						<i class="sc-icon sc-icon-mais-1 sc-badge-hover-green sc-m-h-lg" ng-click="formCtrl.formCtrl.addItem(objeto)"></i>

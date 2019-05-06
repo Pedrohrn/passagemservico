@@ -1,13 +1,13 @@
-<div class="sc-fieldset col-xs-12">
+<div class="sc-fieldset sc-bg-white col-xs-12">
 	<form>
-		<div class="col-xs-5">
+		<div class="col-xs-6">
 			<div class="sc-label">Título do perfil:</div>
 			<div>
 				<input class="sc-input-default" ng-model="perfil.nome">
 			</div>
 		</div>
-		<div class="col-xs-5 align-self-center">
-			<button class="sc-btn sc-dropdown sc-btn-blue align-self-center" ng-click="perfilCtrl.showPermissoes(perfil)">Permissões dos porteiros</button>
+		<div class="col-xs-6 flex-row">
+			<button class="sc-btn sc-dropdown sc-btn-blue align-self-center sc-m-t-xxl" ng-click="perfilCtrl.showPermissoes(perfil)">Permissões dos porteiros</button>
 			<ul class="sc-dropdown-menu" ng-if="showPermissoes">
 				<li ng-repeat="permissao in perfil.permissoes" ng-click="indexCtrl.perfilCtrl.setPermissao()">
 					<i class="sc-icon" ng-class="{'sc-icon-quadrado-1': !permissao.checked , 'sc-icon-visto-4': permissao.checked}"></i>
@@ -16,7 +16,7 @@
 			</ul>
 		</div>
 		<div class="clear"></div>
-		<div class="sc-border-b-dashed sc-text-gray sc-m-v-lg"></div>
+		<div class="sc-m-v-lg"></div>
 		<div class="sc-fieldset">
 			<div class="sc-fieldset-head flex-row">
 				<div class="sc-label sc-text-lg align-self-center">Objetos</div>
@@ -25,11 +25,31 @@
 				<i class="sc-icon sc-icon-mais-1 sc-badge-hover-green visible-xs" ng-click="indexCtrl.perfilCtrl.addObjeto()"></i>
 				<i class="sc-icon sc-icon-lixeira-1 sc-badge-hover-red visible-xs" ng-click="indexCtrl.perfilCtrl.limparFormulario()"></i>
 			</div>
-			<div class="sc-fieldset sc-text-sm" ng-repeat="objeto in perfil.objetos track by $index">
-				<div class="sc-fieldset-head">
-					<select class="sc-input-default" ng-if="!categoria.edit && !categoria.new" ng-options="categoria as categoria.label disable when categoria.disable for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
-						<option value="">Selecione ou cadastre</option>
-					</select>
+			<div class="sc-fieldset sc-text-sm sc-m-lg" ng-repeat="objeto in perfil.objetos track by $index">
+				<div class="sc-fieldset-head flex-row">
+					<div class="sc-input-group fcol-xs-50 fcol-sm-40 sc-text-sm" ng-if="!categoria.edit && !categoria.new" >
+						<select class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
+							<option value="">Selecione ou cadastre</option>
+						</select>
+						<button class="sc-btn sc-btn-default sc-dropdown">
+							<i class="sc-icon sc-icon-reticiencias-v" ng-click="categoria.toggleToolbar()"></i>
+						</button>
+						<ul class="sc-dropdown-menu" ng-show="categoria.menuIsOpen">
+							<li ng-click="indexCtrl.categoriaCtrl.new()">
+								<span>Nova Categoria</span>
+							</li>
+							<li ng-click="indexCtrl.categoriaCtrl.edit(categoria)">
+								<span>Editar categoria</span>
+							</li>
+							<li ng-click="indexCtrl.categoriaCtrl.disable(categoria)">
+								<span ng-if="!categoria.disabled">Desativar</span>
+								<span ng-if="categoria.disabled">Reativar</span>
+							</li>
+							<li ng-click="indexCtrl.categoriaCtrl.rmv(categoria)">
+								<span>Excluir categoria</span>
+							</li>
+						</ul>
+					</div>
 					<div ng-if="categoria.edit || categoria.new" class="sc-input-group">
 						<input class="sc-input-default" ng-model="categoria.label">
 						<button class="sc-btn sc-btn-green" ng-click="indexCtrl.categoriasCtrl.salvarCategoria()"><i class="sc-icon sc-icon-visto-1"></i></button>
@@ -38,23 +58,35 @@
 					<i class="sc-icon sc-icon-mais-1 sc-badge-hover-green sc-m-h-md" ng-click=indexCtrl.perfilCtrl.addItem(objeto)></i>
 					<i class="sc-icon sc-icon-lixeira-1 sc-badge-hover-red" ng-click="indexCtrl.perfilCtrl.rmvObjeto()"></i>
 				</div>
-				<ul ng-if="perfil.objetos.length > 0">
-					<li class="flex-row">
-						<div class="sc-label fcol-xs-15 sc-text-md">Qtd</div>
-						<div class="sc-label fcol-xs-auto sc-text-md">Item</div>
-					</li>
-					<li ng-repeat="item in objeto.itens track by $index">
-						<div class="fcol-xs-15">
-							<input class="sc-input-default fcol-xs-12" ng-model="item.qtd">
-						</div>
-						<div class="fcol-xs-50">
-							<input class="sc-input-default" ng-model="item.label">
-						</div>
-						<div class="fcol-xs-3em">
-							<i class="sc-icon sc-icon-lixeira-1" ng-click="indexCtrl.perfilCtrl.rmvItem(objeto)"></i>
-						</div>
-					</li>
-				</ul>
+				<div class="clear"></div>
+				<div>
+					<ul>
+						<li ng-if="perfil.objetos.length > 0">
+							<div class="flex-row">
+								<div class="fcol-xs-15 fcol-sm-5em">
+									<span class="sc-label">Qtd</span>
+								</div>
+								<div class="sc-m-h-lg sc-p-h-lg fcol-xs-60">
+									<span class="sc-label">Item</span>
+								</div>
+							</div>
+						</li>
+						<li ng-repeat="item in objeto.itens track by $index" class="sc-p-t-md">
+							<div class="flex-row">
+								<div class="fcol-xs-15 fcol-sm-5em">
+									<input class="sc-input sc-input-default sc-input-thin col-xs-12" ng-model="item.qtd" type="number" max="999" min="0" step="1">
+								</div>
+								<div class="sc-m-h-lg sc-p-h-lg fcol-xs-60">
+									<input class="sc-input sc-input-default sc-input-thin col-xs-12" ng-model="item.label" type="text">
+								</div>
+								<div class="fcol-xs-auto"></div>
+								<div class="fcol-xs-3em align-right">
+									<i class="sc-icon sc-icon-lixeira-1 sc-badge-hover-red align-self-center" ng-click="indexCtrl.perfilCtrl.addItem(objeto, $index)"></i>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div class="align-right">
