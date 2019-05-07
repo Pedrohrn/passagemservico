@@ -25,11 +25,11 @@
 				<i class="sc-icon sc-icon-mais-1 sc-badge-hover-green visible-xs" ng-click="indexCtrl.perfilCtrl.addObjeto()"></i>
 				<i class="sc-icon sc-icon-lixeira-1 sc-badge-hover-red visible-xs" ng-click="indexCtrl.perfilCtrl.limparFormulario()"></i>
 			</div>
-			<div class="sc-fieldset sc-text-sm sc-m-lg" ng-repeat="objeto in perfil.objetos track by $index">
+			<div class="sc-fieldset sc-m-lg" ng-repeat="objeto in perfil.objetos track by $index">
 				<div class="sc-fieldset-head flex-row">
 					<div class="sc-input-group fcol-xs-50 fcol-sm-40 sc-text-sm" ng-if="!categoria.edit && !categoria.new" >
-						<select class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria">
-							<option value="">Selecione ou cadastre</option>
+						<select required="required" class="sc-input sc-input-default" ng-options="categoria as categoria.label disable when categoria.disabled for categoria in indexCtrl.categoriasCtrl.list track by categoria.id" ng-model="objeto.categoria" ng-init="objeto.categoria = indexCtrl.categoriasCtrl.list[1]" >
+							<option value="" selected>Selecione ou cadastre</option>
 						</select>
 						<button class="sc-btn sc-btn-default sc-dropdown">
 							<i class="sc-icon sc-icon-reticiencias-v" ng-click="categoria.toggleToolbar()"></i>
@@ -40,10 +40,6 @@
 							</li>
 							<li ng-click="indexCtrl.categoriaCtrl.edit(categoria)">
 								<span>Editar categoria</span>
-							</li>
-							<li ng-click="indexCtrl.categoriaCtrl.disable(categoria)">
-								<span ng-if="!categoria.disabled">Desativar</span>
-								<span ng-if="categoria.disabled">Reativar</span>
 							</li>
 							<li ng-click="indexCtrl.categoriaCtrl.rmv(categoria)">
 								<span>Excluir categoria</span>
@@ -91,7 +87,7 @@
 		</div>
 		<div class="align-right">
 			<button class="sc-btn sc-btn-blue" ng-click="indexCtrl.perfilCtrl.salvarPerfil()">Salvar</button>
-			<button class="sc-btn sc-btn-default" ng-click="indexCtrl.perfilCtrl.cancelarCadastro()">Cancelar</button>
+			<button class="sc-btn sc-btn-default" ng-click="indexCtrl.perfilCtrl.cancelar(perfil)">Cancelar</button>
 		</div>
 	</form>
 </div>

@@ -1,6 +1,6 @@
 <div class="sc-m-h-md sc-p-t-sm">
 	<div class="sc-fieldset flex-row">
-		<div class="fcol-xs-50">
+		<div class="fcol-xs-100">
 			<div class="sc-text-gray sc-p-b-sm">Quem sai:
 				<span class="sc-text-blue">{{passagem.pessoa_saiu.nome}}</span>
 			</div>
@@ -13,27 +13,20 @@
 			<div class="sc-text-gray sc-p-b-sm" ng-if="passagem.status.label == 'Realizada'">Passagem realizada em:
 				<span class="sc-text-blue">{{passagem.data_passagem | date: "dd/MM/yyyy" }}, às {{passagem.data_passagem | date: 'mediumTime' }}</span>
 			</div>
-		</div>
-		<div class="fcol-xs-50">
-			<button class="sc-btn sc-btn-clean" ng-click="passagem.notificacoes.toggle()">
-				<i class="sc-icon sc-icon-carta-4"></i>
-				<span class="sc-text-gray">Notificações</span>
-			</button>
-			<div ng-if="passagem.notificacoes.opened">
-				<ul>
-					<li ng-repeat="grupo in indexCtrl.showCtrl.grupos track by $index">
-						<div class="sc-label">{{grupo.label}}</div>
-						<div class="sc-fieldset">
-							<div ng-repeat="membro in grupo">
-								<input type="checkbox" class="sc-checkbox sc-checkbox-blue">
-								<div class="sc-label">{{membro.nome}} -
-									<span class="sc-text-gray"> {{membro.email}}</span> -
-									<div ng-click="indexCtrl.notificacoesCtrl.showLog"></div>
-								</div>
-							</div>
+			<div class="sc-text-gray" ng-if="passagem.notificacoes.length > 0">
+				<span>
+					<i class="sc-icon sc-icon-carta-4"></i>
+					<span class="sc-text-gray">Notificações</span>
+				</span>
+				<div class="sc-bg-gray-lighter sc-border-solid sc-border-radius sc-m-t-xs sc-scrollbar sc-top-scroll" style="max-height: 6.7em; overflow: auto;
+				border-color: #dfe0e2;">
+					<div class="sc-text-sm sc-m-l-md sc-m-v-xs" ng-repeat="notificacao in passagem.notificacoes">
+						<div class="sc-text-{{notificacao.status.color}}">
+							<p ng-if="notificacao.status.label === 'Enviada'"><b>{{notificacao.user.name}} - {{notificacao.user.email}}</b> (enviada em {{notificacao.data_envio}}</p>
+							<p ng-if="notificacao.status.label === 'Lida'"><b>{{notificacao.user.name}} - {{notificacao.user.email}}</b> (lida em {{notificacao.data_leitura}})</p>
 						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

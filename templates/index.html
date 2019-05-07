@@ -35,7 +35,7 @@
 				</div>
 			</li>
 			<li ng-repeat="passagem in indexCtrl.listCtrl.list track by $index" ng-init="indexCtrl.itemCtrl.init(passagem)" class="sc-accordion-head" ng-class="{'sc-acc-blue': passagem.edit.opened || passagem.acc.opened , 'sc-acc-{{passagem.status.color}}-lighter': !passagem.acc.opened && screen.isXs}">
-				<div class="sc-accordion-head flex-row flex-column sc-text-gray" ng-click="passagem.acc.toggle()">
+				<div class="sc-accordion-head flex-row flex-column sc-text-gray" ng-click="indexCtrl.itemCtrl.accToggle(passagem)">
 					<div class="fcol-xs-3em align-center fcol-order-0" ng-click="indexCtrl.select(passagem)" sc-stop-click>
 						<input type="checkbox" class="sc-checkbox sc-checkbox-blue" ng-model="passagem.checked">
 					</div>
